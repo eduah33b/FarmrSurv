@@ -1,0 +1,196 @@
+#header_banner {
+    position: fixed;
+    top: 50px;
+    padding: 15px 3vw 10px;
+    border-bottom: 1px solid #aaa;
+    width: 100%;
+    background: rgba(255,255,255,0.95);
+    z-index: 99;
+}
+#header_text {
+    padding: 7px 0px;
+    white-space: nowrap;
+    overflow: hidden;
+    box-sizing:border-box;
+    text-overflow: ellipsis;
+    direction: rtl;
+    font-size: 18px;
+    text-align:left;
+    color: rgba(0,0,0, 0.6);
+}
+#header_text > span{
+    margin:0px 7px;
+}
+#header_text > span:last-child{
+    color: rgba(0,0,0, 1);
+}
+#Staff_SearchBox {
+    height: 40px !important;
+    border-radius: 0px !important;
+    font-size: 15px !important;
+}
+.StaffSearchResult {
+    margin: 0px auto;
+    width: 90vw;
+    padding: 2vw;
+}
+
+.StaffSearchResult table.table{
+    -wekbit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+}
+
+.StaffSearchResult > p {
+    color: rgba(0,0,0,0.6);
+    margin-left: -2vw;
+    margin-bottom: 4vh;
+}
+
+.HeaderFooter dd, .HeaderFooter dt{
+    display: inline;
+    margin-right: 5px;
+}
+dd, dt {
+    text-transform: capitalize;
+}
+dd {
+    margin-bottom: 20px;
+}
+
+#MainBody {
+    padding: 20px 0px;
+    background-color: rgba(255,255,255,0.9);
+    -wekbit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+
+    min-height: 67vh;
+}
+#MainBody > div {
+    margin-bottom: 5vh;
+}
+.singleFormBox{
+    margin: 5px auto;
+    padding: 20px 0px;
+    width: 70vw;
+    min-width: 320px;
+}
+.SettingList {
+    margin: 0px auto;
+    padding: 3px;
+    width: 55vw;
+    max-width: 100%;
+    min-width: 320px;
+}
+
+.MainNav .media img {
+    height: 64px;
+    cursor: pointer;
+}
+.MainNav .media .media-body {
+    padding: 10px;    
+    cursor: pointer;
+}
+.MainNav .media .media-body span {
+    color: #808080;
+}
+.MainNav ul > li {
+    text-transform: capitalize;
+}
+.MainNav ul > li:hover {
+    background:  rgba(245, 245, 245, 0.69);
+}
+
+.dropdown-menu > li > a {
+    cursor:pointer;
+    padding:5px 20px;
+}
+
+.panel-list .panel-body > .dropdown {
+    float: right;
+}
+.panel-list .panel-body > .dropdown > .dropdown-menu {
+    left: unset;
+    right: 0px;
+    left: none;
+}
+
+.filterBox {
+    margin: -7vh auto 20px;
+    width: 70vw;
+    max-width: 650px;
+    min-width: 360px;
+}
+
+input[type="submit"]{
+    float: right;
+    width: 50%;
+    margin: 15px 0px;
+}
+
+.UserActionDash .alert{
+    background-color: rgba(255,255,255,0.9);
+    -wekbit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
+
+    padding: 5px 10px;
+    margin: 10px;
+}
+.UserActionDash .alert-dismissable .close,.UserActionDash .alert-dismissible .close {
+    position: relative;
+    top: -16px;
+    right: -4px;
+}
+
+/* New Stuff */
+canvas {
+    display: table;
+}
+ol#surveyRes > li {
+    margin-bottom: 30px;
+}
+
+ol#surveyRes > li canvas {
+    max-width: 500px;
+}
+ol#surveyRes  li p {
+    margin-bottom: 0px;
+}
+.box-1 {
+    margin: 20px auto;
+    width: 80vw;
+}
+.box-2 {
+    position: relative;
+    border: 2px dashed rgba(100, 100, 100, 0.8);
+    min-height: 300px;
+    padding: 10px 60px 10px 10px;
+    margin-bottom: 20px;
+}
+.box-3 {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 60px;
+    padding: 10px 5px;    
+}
+.box-4 {
+    width: 50px;
+    height: 50px;
+    border: 1px solid transparent;
+    background-color: #fff;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2);
+
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}

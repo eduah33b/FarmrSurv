@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>Farmr Survey</title>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+        <link href="Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="Content/Site.css" rel="stylesheet" />
+        <link href="Content/Home.css" rel="stylesheet" />
+        @yield('header')
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a onclick="partialNav('#MainWindow', 'home_', 'Home')" id="header">FarmrSurv</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a onclick="partialNav('#MainWindow', 'home_', 'Home')" id="header"><span class="glyphicon glyphicon-home text-info"></span> Home</a></li>
+                        <li title="Settings">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-duplicate text-success"></span> Add
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a onclick="partialNav('#MainWindow','AddSheet','Add New Form Sheet')">Form Sheet</a></li>
+                            </ul>
+                        </li>
+                    </ul>          
+                </div>
+            </div>
+        </div>
+        <div class="body-content">
+            <div id="MainWindow">
+                    @yield('content')
+            </div>
+        </div>
+
+        @yield('footer')
+        <script src="Scripts/jquery-1.10.2.min.js"></script>
+
+        <script src="Scripts/bootstrap.min.js"></script>
+        <script src="Scripts/Chart.min.js"></script>
+
+        <script src="Scripts/jquery-ui-1.11.4.min.js"></script>
+
+        <script src="Scripts/Home.js"></script>
+    </body>
+</html>
