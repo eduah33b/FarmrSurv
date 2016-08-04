@@ -1,3 +1,7 @@
+# For Deployment Testing
+
+Please find in the database folder, a mysql database export named "farmrsurv.sql". You will need to inport that onto your MySql server for the application to work since I avoided use of migrations for schema building.
+
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
