@@ -57,6 +57,9 @@ input, button, select, textarea {
     border-radius: 0px !important;
     font-size: 15px !important;
 }
+.spinp input, button, select {
+    height: 46px !important;
+}
 input[type="checkbox"]{
     height: 16px !important;
 }

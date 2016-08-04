@@ -55,7 +55,7 @@ class APIController extends Controller
 
      public function SurvResults($id){
         $FormSheet = \DB::table('FormSheet')->where('FormSheetID', $id)->first();
-        $results = \DB::select('SELECT quest.QuestText, quest.QuestTypeID, quest.QuestOpts, survres.* FROM survres, formsheet, quest WHERE quest.QuestID = survres.QuestID and formsheet.FormSheetID = quest.FormSheetID and formsheet.FormSheetID = ?', [$id]);
+        $results = \DB::select('SELECT quest.QuestText, quest.QuestTypeID, quest.QuestOpts, survres.* FROM survres, formsheet, quest WHERE quest.QuestID = survres.QuestID and formsheet.FormSheetID = quest.FormSheetID and formsheet.FormSheetID = ? ORDER BY quest.QuestID;', [$id]);
         //return $results;
         return view('pages.SurvResults', ['FormSheet' => $FormSheet, 'results' => $results]);
     }

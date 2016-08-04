@@ -31,10 +31,26 @@
 
             $(div).load(url, function () {
                 $(div).removeClass("marching-ants marching bnw");
-                $('#header').html(title);
+                if(title != null)
+                	$('#header').html(title);
             });
             $(div).addClass("marching-ants marching bnw");
         }
+
+        var keyStop = {
+		   8: ":not(input:text, textarea, input:file, input:password)", // stop backspace = back
+		   13: "input:text, input:password", // stop enter = submit 
+
+		   end: null
+		 };
+		 $(document).bind("keydown", function(event){
+		  var selector = keyStop[event.which];
+
+		  if(selector !== undefined && $(event.target).is(selector)) {
+		      event.preventDefault(); //stop event
+		  }
+		  return true;
+		 });
     }
 
     //Question Generator
@@ -162,7 +178,7 @@
 	    			QuestionSheet.Qs[qnum].Ans[a] = $(opts[i]).val();
 	    			a++;
     			}
-	    		if(opnum == (QuestionSheet.Qs[qnum].Ans.length - 1)){
+	    		if(opnum == (QuestionSheet.Qs[qnum].Ans.length - 1) && QuestionSheet.Qs[qnum].Ans[opts] == ''){
 	    			Add_NewOption(qnum);
 	    		}
 	    	}
@@ -224,7 +240,7 @@
 				    url: "SaveSuvr",
 				    data: AnswerSheet,
 				    success: function(id){
-				    	alert("Survey Sent");
+				    	partialNav('#MainWindow','SurvResults/' + AnswerSheet.FormID, null)
 				    	//partialNav('#MainWindow', 'home_', 'Home');		    	
 				    },
 				    error: function(){

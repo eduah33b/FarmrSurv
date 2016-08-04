@@ -1,5 +1,5 @@
 <div class="singleFormBox row">
-    <form class="homeForms" onsubmit="return SaveNewForm();" >
+    <form class="homeForms spinp" onsubmit="return SaveNewForm();" >
         
         <div class="form-group col-xs-12">
             <input class="form-control" id="FormTitle" name="FormTitle" placeholder="Form Title" required type="text">
