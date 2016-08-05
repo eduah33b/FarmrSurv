@@ -41,7 +41,7 @@
         </ul></li>
         </ol>
         <br>
-        <h3><center>Total number of respondents: {{ $totalCnt }} </center></h3>
+        <h3><center>Total number of respondents: <?php echo(sizeof($results) / $totalCnt++ )?> </center></h3>
 
     </div>
 </div>
