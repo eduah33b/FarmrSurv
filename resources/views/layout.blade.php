@@ -26,18 +26,11 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a onclick="partialNav('#MainWindow', 'home_', 'Home')" id="header">FarmrSurv</a></li>
+                        <li><a id="header">FarmrSurv</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                        <li><a onclick="partialNav('#MainWindow','AddSheet','Add New Form Sheet')" id="header"><span class="glyphicon glyphicon-plus text-success"></span> Add New Survey</a></li>
                         <li><a onclick="partialNav('#MainWindow', 'home_', 'Home')" id="header"><span class="glyphicon glyphicon-home text-info"></span> Home</a></li>
-                        <li title="Settings">
-                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <span class="glyphicon glyphicon-duplicate text-success"></span> Add
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a onclick="partialNav('#MainWindow','AddSheet','Add New Form Sheet')">Form Sheet</a></li>
-                            </ul>
-                        </li>
                     </ul>          
                 </div>
             </div>

@@ -33,6 +33,14 @@ class APIController extends Controller
     public function DeleteSheet($id){
     	\DB::table('FormSheet')->where('FormSheetID', $id)->delete();
         \DB::table('Quest')->where('FormSheetID', $id)->delete();
+        \DB::table('survres')
+            ->whereExists(function($query)
+            {
+                $query->select(\DB::raw(1))
+                      ->from('quest')
+                      ->whereRaw('NOT EXISTS(SELECT NULL FROM quest WHERE quest.QuestID = survres.QuestID)');
+            })
+            ->delete();
         return $id;
     }
 

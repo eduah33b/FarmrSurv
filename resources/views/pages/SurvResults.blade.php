@@ -1,9 +1,9 @@
 <div class="singleFormBox row">
     <div class="homeForms" onsubmit="return SaveSurv();" >
 
-        <p class="text-muted"><center>{{ $FormSheet->FormSheetDesc }}</center></p>
+        <h4 class="text-muted"><center>{{ $FormSheet->FormSheetDesc }}</center></h4>
         <br/>
-        <?php $currentQ = null; ?>
+        <?php $currentQ = null; $totalCnt = 0; ?>
         <ol id="surveyRes">
         @foreach ($results as $row)
             @if ($row->QuestTypeID === 1 || $row->QuestTypeID === 2)
@@ -17,7 +17,7 @@
                         <ul>
                             <li>{{ $row->SurvResText }}</li>                        
 
-                    <?php $currentQ = $row->QuestID; ?>
+                    <?php $currentQ = $row->QuestID; $totalCnt++; ?>
                 @else
                     <li>{{ $row->SurvResText }}</li>
                 @endif
@@ -32,14 +32,17 @@
                         <ul>
                             <li>{{ $row->SurvResText }}</li>                        
 
-                    <?php $currentQ = $row->QuestID; ?>
+                    <?php $currentQ = $row->QuestID; $totalCnt++; ?>
                 @else
                     <li>{{ $row->SurvResText }}</li>
                 @endif
             @endif
         @endforeach
         </ul></li>
-        <ol>
+        </ol>
+        <br>
+        <h3><center>Total number of respondents: {{ $totalCnt }} </center></h3>
+
     </div>
 </div>
 <script type="text/javascript">

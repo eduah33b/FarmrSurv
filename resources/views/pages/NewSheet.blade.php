@@ -1,6 +1,5 @@
-<div class="singleFormBox row">
-    <form class="homeForms spinp" onsubmit="return SaveNewForm();" >
-        
+<div id="QIsheet">
+    <form class="homeForms spinp row" onsubmit="return SaveNewForm();" >
         <div class="form-group col-xs-12">
             <input class="form-control" id="FormTitle" name="FormTitle" placeholder="Form Title" required type="text">
         </div>
@@ -17,6 +16,14 @@
             </div>
         </div>
     </form>
+</div>
+
+<div id="qSList">
+    <h3>Questions soo far ...</h3>
+    <br>
+    <ol id="surveyRes">
+        <li>...</li>
+    </ol>   
 </div>
 <script type="text/javascript">
     startQ_Create();

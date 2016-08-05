@@ -20,7 +20,7 @@
             catch (e) {
                 document.execCommand('Stop');
             }
-
+            QuestionSheet = {Title: null, Desc: null, Qs: []};
             $(div).html('<div id="progress_report"><div class="loading-effect-2"><span></span></div></div>');
 
 
@@ -63,10 +63,11 @@
 	    	}
 
 	    	QCreate_Next = function(qnum){
-	    		if(qnum == QuestionSheet.Qs.length){
+	    		if(qnum == QuestionSheet.Qs.length && $('#question_' + qnum + ' input.question').val().trim() != ''){
 	    			QuestionSheet.Qs[qnum] = { Q: null, Type: null, Ans: []};
 					 $('#question_' + qnum + ' select').fadeIn();
 	    			Add_NewQues();
+	    			$('#question_' + qnum + ' > .form-group').removeClass('has-error').addClass('has-warning');
 	    		}
 	    	}
 
@@ -87,10 +88,13 @@
 	    	SaveQue = function(qnum){
 	    		if(qnum < QuestionSheet.Qs.length && $('#question_' + qnum + ' input.question').val() == ''){
 	    			Remove_Ques(qnum);
+	    			showQs_List();
 	    			return false;
 	    		}
 	    		QuestionSheet.Qs[qnum] = { Q: $('#question_' + qnum + ' input.question').val(), Type: $('#question_' + qnum + ' select').val(), Ans: []};
 	    		
+	    		$('#question_' + qnum + ' > .form-group').removeClass('has-warning').addClass('has-success');
+
 	    		switch($('#question_' + qnum + ' select').val()){
 	    			case '3':
 	    				break;
@@ -100,13 +104,17 @@
 						QuestionSheet.Qs[qnum].Ans = [];
 						break;
 	    		}
+	    		showQs_List();
 	    	}
 
 	    	Add_NewQues = function(){
 	    		var qnum = QuestionSheet.Qs.length;
 	    		var qs = '<div id="question_' + qnum + '">';
-	    		qs +='<div class="form-group col-xs-8">';
+	    		qs +='<div class="form-group has-error col-xs-8">';
 	        	qs +='<input class="form-control question" name="question[]" placeholder="Question ' + (qnum + 1) + '" type="text" onchange="SaveQue(' + qnum + ')" onkeyup="QCreate_Next(' + qnum + ')">';
+	        	qs += '<span class="glyphicon glyphicon-ok form-control-feedback"></span>';
+	        	qs += '<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>';
+	        	qs += '<span class="glyphicon glyphicon-remove form-control-feedback"></span>';
 	        	qs +='</div><div class="form-group col-xs-4"><select class="form-control" onchange="initOptions(' + qnum + ')" style="display: none;"><option value="1"> Text Answer </option><option value="2"> Numeric Answer </option><option value="3"> Single choice </option><option value="4"> Multiple choice </option></select></div>';
 	        	qs +='<div class="options"><div></div>';
 	    		$('#questions').append(qs);
@@ -116,10 +124,9 @@
 	    		$('#questions').html('');
 	    		for (var i = 0; i < QuestionSheet.Qs.length; i++) {
 	    			var qs = '<div id="question_' + i + '">';
-		    		qs +='<div class="form-group col-xs-8">';
+		    		qs +='<div class="form-group has-success col-xs-8">';
 		        	qs +='<input class="form-control question" value="' + QuestionSheet.Qs[i].Q + '" name="question[]" placeholder="Question ' + (i + 1) + '" type="text" onchange="SaveQue(' + i + ')" onkeyup="QCreate_Next(' + i + ')">';
 		        	qs +='</div><div class="form-group col-xs-4"><select class="form-control" onchange="initOptions(' + i + ')">'
-		        	alert(QuestionSheet.Qs[i].Type);
 		        	switch(QuestionSheet.Qs[i].Type){
 		        		case '1':
 		        			qs +='<option value="1" selected> Text Answer </option><option value="2"> Numeric Answer </option><option value="3"> Single choice </option><option value="4"> Multiple choice </option>';
@@ -138,38 +145,66 @@
 		        	qs +='<div class="options">';
 
 		        	for (var a = 0; a < QuestionSheet.Qs[i].Ans.length; a++) {
-		        		qs +='<div class="form-group col-xs-10"><input class="form-control option" value="' + QuestionSheet.Qs[i].Ans[a] + '" placeholder="Option ' + (a  + 1) + '" type="text" onchange="SaveOpt(' + i + ', ' + a + ')"></div>';
+		        		qs +='<div class="form-group has-success col-xs-7" id="Opts_' + a + '"><input class="form-control option" value="' + QuestionSheet.Qs[i].Ans[a] + '" placeholder="Option ' + (a  + 1) + '" type="text" onchange="SaveOpt(' + i + ', ' + a + ')"></div>';
 		        	}
 		        	if(QuestionSheet.Qs[i].Type > 2)
-		        		qs +='<div class="form-group col-xs-10"><input class="form-control option" placeholder="Option ' + (QuestionSheet.Qs[i].Ans.length + 1) + '" type="text" onchange="SaveOpt(' + i + ', ' + QuestionSheet.Qs[i].Ans.length + ')"></div>';
+		        		qs +='<div class="form-group has-error col-xs-7" id="Opts_' + QuestionSheet.Qs[i].Ans.length + '"><input class="form-control option" placeholder="Option ' + (QuestionSheet.Qs[i].Ans.length + 1) + '" type="text" onchange="SaveOpt(' + i + ', ' + QuestionSheet.Qs[i].Ans.length + ')" onkeyup="OpCreate_Next(' + i + ', ' + QuestionSheet.Qs[i].Ans.length + ')"></div>';
 		        	'<div></div>';
 		        	$('#questions').append(qs);
 	    		}
 
 	    		Add_NewQues();
 	    	}
+
+	    	showQs_List = function(){
+	    		$('#qSList #surveyRes').html('');
+	    		for (var i = 0; i < QuestionSheet.Qs.length; i++) {
+	    			var qs = '<li>' + QuestionSheet.Qs[i].Q;
+		        	if(QuestionSheet.Qs[i].Type == 3){
+		        		qs += '<ul type="circle">';
+		        	}
+		        	if(QuestionSheet.Qs[i].Type == 4){
+	        			qs += '<ul type="square">';
+		        	}
+
+		        	for (var a = 0; a < QuestionSheet.Qs[i].Ans.length; a++) {
+		        		qs +='<li>' + QuestionSheet.Qs[i].Ans[a] + '</li>';
+		        	}
+		        	qs +='</ul>';
+
+	        		qs +='</li>';
+		        	$('#qSList #surveyRes').append(qs);
+	    		}
+	    	}
 	    }
     	//Options
     	{
     		initOptions = function(qnum){
+				QuestionSheet.Qs[qnum].Ans = [];	    		
     			var ops = '';
     			switch($('#question_' + qnum + ' select').val()){
 	    			case '3':
 					case '4':
-					ops +='<div class="form-group col-xs-10"><input class="form-control option" placeholder="Option 1" type="text" onchange="SaveOpt(' + qnum + ', 0)"></div>';
+					ops +='<div class="form-group has-error col-xs-7" id="Opts_0"><input class="form-control option" placeholder="Option 1" type="text" onchange="SaveOpt(' + qnum + ', 0)" onkeyup="OpCreate_Next(' + qnum + ', 0)"></div>';
 					$('#questions #question_' + qnum + ' .options').html(ops);
 	    				break;
 					default:
-						QuestionSheet.Qs[qnum].Ans = [];
 						$('#questions #question_' + qnum + ' .options').html('');
 						break;
 	    		}
-
 	    		QuestionSheet.Qs[qnum].Type = $('#question_' + qnum + ' select').val();
     		}
 
+    		OpCreate_Next = function(qnum, opnum){
+	    		if(opnum == QuestionSheet.Qs[qnum].Ans.length){
+	    			QuestionSheet.Qs[qnum].Ans[opnum] = $('#questions #question_' + qnum + ' .options #Opts_' + opnum + ' input').val();
+	    			Add_NewOption(qnum);
+	    			$('#questions #question_' + qnum + ' .options #Opts_' + opnum).removeClass('has-error').addClass('has-warning');
+	    		}
+	    	}
+
     		SaveOpt = function(qnum, opnum){
-    			var opts = $('#questions #question_' + qnum + ' .options .option'), a = 0;
+    			/*var opts = $('#questions #question_' + qnum + ' .options .option'), a = 0;
     			QuestionSheet.Qs[qnum].Ans = [];
     			for (var i = 0; i < opts.length; i++) {
     				if($(opts[i]).val() == ''){
@@ -180,13 +215,36 @@
     			}
 	    		if(opnum == (QuestionSheet.Qs[qnum].Ans.length - 1) && QuestionSheet.Qs[qnum].Ans[opts] == ''){
 	    			Add_NewOption(qnum);
+	    		}*/
+
+	    		if($('#questions #question_' + qnum + ' .options #Opts_' + opnum + ' input').val().trim() == ''){
+	    			Remove_Opts(qnum, opnum);
+	    			return false;
 	    		}
+
+	    		QuestionSheet.Qs[qnum].Ans[opnum] = $('#questions #question_' + qnum + ' .options #Opts_' + opnum + ' input').val();
+	    		$('#questions #question_' + qnum + ' .options #Opts_' + opnum).removeClass('has-warning').addClass('has-success');
+	    		showQs_List();
+	    	}
+
+	    	Remove_Opts = function(qnum, opnum){
+	    		var tempQ = QuestionSheet.Qs[qnum].Ans, a = 0;
+
+	    		QuestionSheet.Qs[qnum].Ans = [];
+
+	    		for (var i = 0; i < tempQ.length; i++) {
+	    			if(opnum == i)
+	    				continue;
+	    			QuestionSheet.Qs[qnum].Ans[a] = tempQ[i];
+	    			a++;
+	    		}
+	    		rebuildForm();
 	    	}
 
     		Add_NewOption = function(qnum){
     			var opnum = QuestionSheet.Qs[qnum].Ans.length;
-	    		var ops = '<div class="form-group col-xs-10">';
-	    		ops +='<input class="form-control option" placeholder="Option ' + (opnum  + 1) + '" type="text" onchange="SaveOpt(' + qnum + ', ' + opnum + ')"></div>';
+	    		var ops = '<div class="form-group has-error col-xs-7" id="Opts_' + opnum + '">';
+	    		ops +='<input class="form-control option" placeholder="Option ' + (opnum  + 1) + '" type="text" onchange="SaveOpt(' + qnum + ', ' + opnum + ')" onkeyup="OpCreate_Next(' + qnum + ', ' + opnum + ')"></div>';
 	    		$('#questions #question_' + qnum + ' .options').append(ops);
 	    	}
     	}
